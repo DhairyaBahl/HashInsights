@@ -1,0 +1,35 @@
+.app {
+  min-height: 100vh;
+  position: relative;
+  overflow-wrap: break-word;
+}
+
+.app__container-page {
+  min-height: 100vh;
+}
+
+.posts {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.loader {
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 40vh;
+}
+
+.noPosts {
+  margin-top: 4rem; 
+  font-weight: 700; 
+  text-align: center;   
+}
+
+@media (min-width: 768px) {
+  .posts {
+    padding-left: 200px;
+    padding-right: 200px;
+    min-height: 80vh;
+  }  
+}

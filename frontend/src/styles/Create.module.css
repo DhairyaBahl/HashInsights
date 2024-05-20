@@ -1,0 +1,79 @@
+.container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem; 
+    margin-top: 2rem; 
+}
+
+.heading {
+  font-size: 1.25rem;
+  line-height: 1.75rem; 
+  font-weight: 700; 
+}
+
+.form {
+  display: flex; 
+  margin-top: 1rem; 
+  flex-direction: column; 
+  width: 100%; 
+  align-items: center;
+}
+
+.input {
+  padding: 0.5rem 1rem;
+  outline-style: none;   
+  outline: none;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
+  font-size: 20px;
+}
+
+.createButton {
+  outline: none;
+  border: none;
+  font-size: 1.1rem;
+  line-height: 1.75rem; 
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px; 
+  color: #ffffffe5; 
+  background-color: #2563EB; 
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms; 
+  text-decoration: none;
+}
+
+.createButton:disabled {
+  background-color: #e0e0e0;
+  color: #000000; 
+  cursor: not-allowed; 
+}
+
+.createButton:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); 
+}
+
+@media (min-width: 768px) { 
+  .container {
+    padding-left: 200px;
+    padding-right: 200px; 
+  }
+
+  .heading {
+    font-size: 1.5rem;
+    line-height: 2rem; 
+  }
+
+  .form {
+    margin-top: 2rem;
+  }
+
+  .createButton {
+    font-size: 1.25rem;
+    line-height: 1.75rem; 
+    width: 20%;
+  }
+}
