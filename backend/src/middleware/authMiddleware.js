@@ -13,7 +13,7 @@ const authenticateToken = (req, res, next) => {
   }
 
   // Verify the token
-  jwt.verify(token, 'your-secret-key', (err, decodedToken) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
     if (err) {
       return res.status(401).json({ error: 'Unauthorized: Invalid token' });
     }

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import styles from '../styles/HomePosts.module.css';
 import { Post } from '@/types/Post';
 import { useRouter } from 'next/router';
+import ISTTime from '@/utils/ISTTime';
 
 const HomePosts = (props: Props) => {
   const { post } = props;
@@ -23,7 +24,7 @@ const HomePosts = (props: Props) => {
           <p>@{post.username}</p>
 
           <div className={styles.date}>
-            <p>{new Date(post.createdAt).toString().slice(0,15)}</p>
+            <p>{ISTTime(post.createdAt).toString().slice(0,15)}</p>
           </div>
         </div>
 

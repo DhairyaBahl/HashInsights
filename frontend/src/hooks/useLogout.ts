@@ -1,7 +1,7 @@
 import { cookieService } from "@/services";
 
 export const useLogout = () => {
-    const logout = async () => {
+    const logout = () => {
         cookieService.delete('currentUser');
     };
 

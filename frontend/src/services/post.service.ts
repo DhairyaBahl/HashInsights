@@ -26,11 +26,6 @@ export class PostService {
     }
     
     createPost = async (title: string, content: string): Promise<any> => {
-        const headers = {
-            authorization: `Bearer ${cookieService.get('currentUser')}`,
-        }
-
-        // const post = await this.instance.post('/', { title, content }, { headers });
         const post = await this.instance.post('/', { title, content }, { 
             headers: {
                 authorization: `Bearer ${JSON.parse(cookieService.get('currentUser') as string).accessToken}`,
@@ -41,7 +36,7 @@ export class PostService {
 
     getMyPosts = async (): Promise<Post[]> => {
         const authorId  = JSON.parse(cookieService.get('currentUser') as string).id;
-        const posts = await this.instance.get(`/?authorId=${authorId}`);
+        const posts = await this.instance.get(`/?author=${authorId}`);
         return posts.data;
     };
 };

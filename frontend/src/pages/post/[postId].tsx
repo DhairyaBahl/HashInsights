@@ -1,29 +1,17 @@
-import { useGetPostById } from "@/hooks/useGetPostById";
-import { useRouter } from "next/router";
-import toast from "react-hot-toast";
 import styles from '@/styles/PostPage.module.css';
-import { useEffect, useState } from "react";
-import isEmpty from "@/utils/isEmpty";
 import Header from "@/components/Header";
+import { postService } from "@/services";
+import { Post } from "@/types/Post";
+import ISTTime from "@/utils/ISTTime";
+import contentFormatter from '@/utils/contentFormatter';
 
-const PostPage = () => {
-  const router = useRouter();
-
-  const [postId, setPostId] = useState<string>('');
-  const { post, loading, error } = useGetPostById(postId);
-
-  useEffect(() => {
-    if(router.isReady) {
-      setPostId(router.query.postId as string);
-    }
-  }, [router.isReady])
-
-  if(loading || isEmpty(postId)) {
-    return <h1>Loading...</h1>
-  }
-
-  if(error) {
-    toast.error('An error occurred');
+const PostPage = ({ post }: { post: Post }) => {
+  const getFormattedContent = (content: string) => {
+    return contentFormatter(content).map((paragraph, index) => (
+      <p key={index} className={styles.content}>
+        {paragraph}
+      </p>
+    ));
   }
 
   if(!post) {
@@ -32,7 +20,6 @@ const PostPage = () => {
 
   return (
     <>
-
       <Header />
 
       <div className={styles.container}>
@@ -46,17 +33,32 @@ const PostPage = () => {
             <p>@{post.username}</p>
 
             <div className={styles.date}>
-              <p>{new Date(post.createdAt).toString().slice(0,15)}</p>
+              <p>{ISTTime(post.createdAt).toString().slice(0,15)}</p>
             </div>
           </div>
 
-          <p className={styles.content}>{post.content}</p>
+          { getFormattedContent(post.content) }
         </div>
 
       </div>
-
     </>
   );
 };
+
+export async function getStaticProps({ params }: { params: { postId: string } }) {
+  const postId = params.postId;
+  const post = await postService.getPostById(postId);
+
+  return { props: { post }, revalidate: 1 }
+}
+
+export async function getStaticPaths() {
+  const posts = await postService.getAllPosts();
+  const paths = posts.map(post => ({
+    params: { postId: post.id.toString() }
+  }));
+
+  return { paths, fallback: 'blocking' };
+}
 
 export default PostPage;

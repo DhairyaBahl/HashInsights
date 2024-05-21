@@ -2,23 +2,12 @@ import styles from '../styles/Home.module.css';
 
 import Header from "@/components/Header";
 import HomePosts from "@/components/HomePosts";
-import Loader from '@/components/Loader';
-import { useGetAllPosts } from '@/hooks/useGetAllPosts';
+import { postService } from '@/services';
+import { Post } from '@/types/Post';
 import isEmpty from '@/utils/isEmpty';
-import toast from 'react-hot-toast';
 
-const HomePage = () => {
-  const { data: posts, isLoading, error } = useGetAllPosts();
-
+const HomePage = ({ posts }: { posts: Post[] }) => {
   const getPostsUI = () => {
-    if(isLoading) {
-      return (
-        <div className={styles.loader}>
-          <Loader />
-        </div>
-      );
-    }
-
     if(isEmpty(posts)) {
       return (
         <div className={styles.noPosts}>
@@ -27,20 +16,9 @@ const HomePage = () => {
       );
     }
 
-    if(error) {
-      toast.error(error);
-      return;
-    }
-
-    return (
-      <>
-        {
-          posts.map((post, index) => (
-            <HomePosts key={index} post={post} />
-          ))
-        }
-      </>
-    )
+    return posts.map((post: Post, index: number) => (
+      <HomePosts key={post.id} post={post} />
+    ));
   };
 
   return (
@@ -54,5 +32,14 @@ const HomePage = () => {
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  try {
+    const posts: Post[] = await postService.getAllPosts();
+    return { props: { posts } };
+  } catch (error) {
+    return { props: { posts: [] } };
+  }
+}
 
 export default HomePage;

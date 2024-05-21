@@ -30,16 +30,10 @@ const Dashboard = () => {
       if(error) {
         toast.error(error);
       }
-  
-      return (
-        <>
-          {
-            posts.map((post, index) => (
-              <HomePosts key={index} post={post} />
-            ))
-          }
-        </>
-      )
+
+      return posts.map((post, index) => (
+        <HomePosts key={index} post={post} />
+      ));
     };
   
     return (
@@ -55,6 +49,7 @@ const Dashboard = () => {
             </div>
 
             { getPostsUI() }
+
           </div>
         </div>
   

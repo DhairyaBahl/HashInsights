@@ -41,6 +41,7 @@
 .content {
     font-size: 0.875rem;
     line-height: 1.25rem; 
+    margin-bottom: 20px;
 }
 
 @media (min-width: 768px) { 
