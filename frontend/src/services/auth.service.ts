@@ -6,7 +6,7 @@ export class AuthService {
 
     public constructor(url: string) {
         if(!url) {
-            url = 'http://localhost:5000/api';
+            url = 'https://hashinsights.azurewebsites.net/api';
         }
 
         this.instance = axios.create({
